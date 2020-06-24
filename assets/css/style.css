@@ -33,6 +33,12 @@ header p {
   font-size: 2rem;
 }
 
+main {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
 p,
 li {
   font-size: 1.6rem;
@@ -230,4 +236,7 @@ footer {
     flex-basis: 100%;
   }
 
+  section {
+    width: 100%;
+  }
 }
