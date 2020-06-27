@@ -190,7 +190,22 @@ var dropZoneDragHandler = function(event) {
     }
 }
 
+var dropTaskHandler = function(event) {
+    var id = event.dataTransfer.getData("text/plain");
+    var draggableElement = document.querySelector("[data-task-id='" + id + "']");
+    var dropZoneEl = event.target.closest(".task-list");
+    var statusType = dropZoneEl.id;
+    var statusSelectEl = draggableElement.querySelector("select[name='status-change']");
+    
+    if (statusType = "tasks-to-do") statusSelectEl.selectedIndex = 0;
+    else if (statusType = "tasks-in-progress") statusSelectEl.selectedIndex = 1;
+    else if (statusType = "tasks-completed") statusSelectEl.selectedIndex = 2;
+    
+    dropZoneEl.appendChild(draggableElement);
+};
+
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("dragstart", dragTaskHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
+pageContentEl.addEventListener("drop", dropTaskHandler);
 
