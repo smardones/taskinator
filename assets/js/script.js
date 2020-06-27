@@ -57,6 +57,7 @@ var createTaskEl = function(taskDataObj) {
     // Creat List Item
     var listItemEl = document.createElement("li");
     listItemEl.className = "task-item";
+    listItemEl.setAttribute("draggable", "true");
 
     // Creat div to hold task info and add to list item
     taskInfoEl = document.createElement("div");
@@ -117,7 +118,7 @@ formEl.addEventListener("submit", taskFormHandler);
 
 
 var taskButtonHandler = function(event) {
-    console.log(event.target);
+    
 
     var targetEl = event.target;
 
@@ -175,5 +176,21 @@ var taskStatusChangeHandler = function(event) {
     }
 };
 
+var dragTaskHandler = function(event) {
+    var taskId = event.target.getAttribute("data-task-id");
+    event.dataTransfer.setData("text/plain", taskId);
+    var getId = event.dataTransfer.getData("text/plain");
+    console.log("getId:", getId, typeof getId);
+};
+
+var dropZoneDragHandler = function(event) {
+    var taskListEl = event.target.closest(".task-list");
+    if (taskListEl) {
+    event.preventDefault();
+    }
+}
+
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+pageContentEl.addEventListener("dragstart", dragTaskHandler);
+pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 
